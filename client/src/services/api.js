@@ -1,11 +1,19 @@
-const API_URL = "http://localhost:5000";
+import axios from "axios";
+
+const API_URL = "http://localhost:5000/api";
+
+const api = axios.create({
+  baseURL: API_URL,
+});
 
 export const getServerStatus = async () => {
-    const response = await fetch(`${API_URL}/`);
+  const response = await api.get("/");
+  return response.data;
+};
 
-    if (!response.ok) {
-        throw new Error("Failed to connect to the server");
-    }
+export const getProducts = async () => {
+  const response = await api.get("/products");
+  return response.data;
+};
 
-    return response.json();
-;}
+export default api;
